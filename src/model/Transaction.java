@@ -14,7 +14,7 @@ public class Transaction {
 
 	//Methods
 	public void DetermineCategory() {
-		category = null;
+		//based on the party String
 	}
 
 	//Getters and Setters

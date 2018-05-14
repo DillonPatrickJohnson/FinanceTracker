@@ -1,7 +1,7 @@
 package model.TransactionCategories;
 
 public class EatingOut extends TransactionCategory {
-	String getTransactionCategory() {
+	public String getTransactionCategory() {
 		return "Eating Out";
 	}
 }

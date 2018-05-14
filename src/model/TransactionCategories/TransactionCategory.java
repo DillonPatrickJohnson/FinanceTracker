@@ -1,7 +1,7 @@
 package model.TransactionCategories;
 
 public class TransactionCategory {
-	String getTransactionCategory() {
+	public String getTransactionCategory() {
 		return "uncategorized";
 	}
 }

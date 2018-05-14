@@ -1,7 +1,7 @@
 package model.TransactionCategories;
 
 public class Clothing extends TransactionCategory {
-	String getTransactionCategory() {
+	public String getTransactionCategory() {
 		return "Clothing";
 	}
 }
