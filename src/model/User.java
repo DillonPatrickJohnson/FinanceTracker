@@ -1,7 +1,5 @@
 package model;
 
-import model.TransactionCategories.TransactionCategory;
-
 import java.util.HashMap;
 
 public class User {

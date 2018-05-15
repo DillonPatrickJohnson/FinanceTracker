@@ -1,7 +1,5 @@
 package model;
 
-import model.TransactionCategories.TransactionCategory;
-
 import java.util.Date;
 
 public class Transaction {
@@ -10,7 +8,6 @@ public class Transaction {
 	private double amount;
 	private String party;	//name of the store, person, etc. that the transaction is going to/came from.
 	private Date date;
-	private TransactionCategory category;
 
 	//Methods
 	public void DetermineCategory() {
