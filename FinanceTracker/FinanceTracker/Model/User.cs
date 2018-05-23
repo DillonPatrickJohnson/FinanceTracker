@@ -13,6 +13,7 @@ namespace FinanceTracker.Model {
 		private List<Transaction> transactions;
 
 		//Constructors
+		public User() { }
 		public User(string name, string password) {
 			this.name = name;
 			this.password = password;
