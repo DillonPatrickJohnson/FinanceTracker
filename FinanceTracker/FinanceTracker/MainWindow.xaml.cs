@@ -16,6 +16,7 @@ namespace FinanceTracker
 		{
 			Parser parser = new Parser();
 			parser.loadFile();
+
 		}
 	}
 }

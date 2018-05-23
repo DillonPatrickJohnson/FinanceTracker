@@ -11,6 +11,7 @@ namespace FinanceTracker.Model {
 		private string participant;
 		private DateTime date;
 		private double amount;
+		private string type;
 
 		//Constructor
 		public Transaction(string participant, DateTime date, double amount) {
@@ -30,6 +31,10 @@ namespace FinanceTracker.Model {
 
 		public double getAmount() {
 			return amount;
+		}
+		
+		public string getType() {
+			return type;
 		}
 	}
 }
