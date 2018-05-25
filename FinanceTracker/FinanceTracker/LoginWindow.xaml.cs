@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FinanceTracker.Model;
+using FinanceTracker.Global;
 using System.IO;
 
 namespace FinanceTracker.Views {
@@ -38,7 +39,8 @@ namespace FinanceTracker.Views {
 				return;
 			}
 			currentUser = createNewUser();
-			writeToFile(currentUser);
+			writeToFile(currentUser);	//todo
+			Session.user = currentUser;
 			MainWindow main = new MainWindow();
 			main.Show();
 			this.Close();
@@ -70,6 +72,7 @@ namespace FinanceTracker.Views {
 			return null;
 		}
 
+		//todo
 		private void writeToFile(User currentUser) {
 			string path = "...\\users.txt";
 			

@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using FinanceTracker.Model;
+using FinanceTracker.Global;
 
 namespace FinanceTracker {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window {
-
-		User currentUser;
 
 		public MainWindow() {
 			this.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
