@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using FinanceTracker.Model;
 using FinanceTracker.Global;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace FinanceTracker.Views {
 	/// <summary>
@@ -29,7 +30,9 @@ namespace FinanceTracker.Views {
 			usernameTextBox.Focus();
 		}
 
+		//Events
 		private void loginButton_Click(object sender, RoutedEventArgs e) {
+			Console.WriteLine("Attempting to login");
 			if (!checkUserInput()) {
 				return;
 			}
@@ -40,11 +43,17 @@ namespace FinanceTracker.Views {
 				return;
 			}
 			currentUser = createNewUser();
-			writeToFile(currentUser);	//todo
+			writeToFile(currentUser);
 			Session.user = currentUser;
 			MainWindow main = new MainWindow();
 			main.Show();
 			this.Close();
+		}
+
+		private void passwordTextBox_OnKeyDown(object sender, KeyEventArgs e) {
+			if (e.Key == Key.Return || e.Key == Key.Enter) {
+				loginButton_Click(this, new RoutedEventArgs());
+			}
 		}
 
 		//Utility methods
@@ -75,17 +84,19 @@ namespace FinanceTracker.Views {
 
 		//todo
 		private void writeToFile(User currentUser) {
-			string path = "...\\users.txt";
+			string path = "...\\users.json";
 			
-			//Load original CSV.
+			//Load original json
 			FileStream fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 			fs.Close();
 
 			//Append.
-			string line = string.Format(currentUser.getName() + "," + currentUser.getPassword() + Environment.NewLine);
+			string line = string.Format(currentUser.name + "," + currentUser.password + Environment.NewLine);
 
-			//TODO
-			//write class as a JSON file for saving and loading.
+			//Converting object to json using Newtonsoft JSON
+			string json = JsonConvert.SerializeObject(currentUser);
+			//Writing to file to save
+			File.AppendAllText(@"...\\users.json", json);
 		}
 	}
 }

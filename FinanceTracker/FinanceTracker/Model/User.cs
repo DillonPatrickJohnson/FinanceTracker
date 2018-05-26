@@ -8,9 +8,9 @@ namespace FinanceTracker.Model {
 	class User {
 
 		//Fields
-		private string name;
-		private string password;
-		private List<Transaction> transactions;
+		public string name { get; set; }
+		public string password { get; set; }
+		public List<Transaction> transactions { get; set; }
 
 		//Constructors
 		public User() { }
@@ -18,19 +18,6 @@ namespace FinanceTracker.Model {
 			this.name = name;
 			this.password = password;
 			transactions = new List<Transaction>();
-		}
-
-		//Getters
-		public string getName() {
-			return name;
-		}
-
-		public string getPassword() {
-			return password;
-		}
-
-		public List<Transaction> getTransactions() {
-			return transactions;
 		}
 	}
 }

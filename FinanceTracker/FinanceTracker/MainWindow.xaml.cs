@@ -16,9 +16,9 @@ namespace FinanceTracker {
 
 			//Printing information about the user
 			Console.WriteLine("\nSession info:");
-			Console.WriteLine("user.name = " + Session.user.getName());
-			Console.WriteLine("user.password = " + Session.user.getPassword());
-			Console.WriteLine("Total transactions = " + Session.user.getTransactions().Count + "\n");
+			Console.WriteLine("user.name = " + Session.user.name);
+			Console.WriteLine("user.password = " + Session.user.password);
+			Console.WriteLine("Total transactions = " + Session.user.transactions.Count + "\n");
 		}
 
 		private void importButton_Click(object sender, RoutedEventArgs e) {
