@@ -16,7 +16,7 @@ namespace FinanceTracker {
 			ofd.DefaultExt = ".csv";
 			ofd.ShowDialog();
 			filename = ofd.FileName;
-			Console.Write("Selected the file: " + filename);
+			Console.WriteLine("Selected the file: " + filename);
 		}
 	}
 }

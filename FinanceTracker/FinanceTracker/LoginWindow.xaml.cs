@@ -26,6 +26,7 @@ namespace FinanceTracker.Views {
 		public LoginWindow() {
 			this.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 			InitializeComponent();
+			usernameTextBox.Focus();
 		}
 
 		private void loginButton_Click(object sender, RoutedEventArgs e) {

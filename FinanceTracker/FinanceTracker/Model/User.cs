@@ -17,6 +17,7 @@ namespace FinanceTracker.Model {
 		public User(string name, string password) {
 			this.name = name;
 			this.password = password;
+			transactions = new List<Transaction>();
 		}
 
 		//Getters
