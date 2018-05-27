@@ -22,6 +22,7 @@ namespace FinanceTracker.Views {
 	/// </summary>
 	public partial class LoginWindow : Window {
 
+		string path = "...\\users.json";
 		User currentUser;
 
 		public LoginWindow() {
@@ -33,21 +34,27 @@ namespace FinanceTracker.Views {
 		//Events
 		private void loginButton_Click(object sender, RoutedEventArgs e) {
 			Console.WriteLine("Attempting to login");
-			if (!checkUserInput()) {
-				return;
+			if (CheckUserInput()) {
+				if (FindUser(usernameTextBox.Text, passwordTextBox.Text) != null) {
+					currentUser = FindUser(usernameTextBox.Text, passwordTextBox.Text);
+					CompleteLogin();
+				}
+				else {
+					//add alert
+					usernameTextBox.Clear();
+					passwordTextBox.Clear();
+					incorrectLoginLabel.Content = "Incorrect Login";
+				}
 			}
 		}
 
 		private void createUserButton_Click(object sender, RoutedEventArgs e) {
-			if (!checkUserInput()) {
+			if (!CheckUserInput()) {
 				return;
 			}
-			currentUser = createNewUser();
+			currentUser = CreateNewUser();
 			WriteToFile(currentUser);
-			Session.user = currentUser;
-			MainWindow main = new MainWindow();
-			main.Show();
-			this.Close();
+			CompleteLogin();
 		}
 
 		private void passwordTextBox_OnKeyDown(object sender, KeyEventArgs e) {
@@ -57,7 +64,7 @@ namespace FinanceTracker.Views {
 		}
 
 		//Utility methods
-		private bool checkUserInput() {
+		private bool CheckUserInput() {
 			if (usernameTextBox.GetLineText(0) == "" || passwordTextBox.GetLineText(0) == "") {
 				Console.WriteLine("Please enter username and password");
 				return false;
@@ -65,29 +72,35 @@ namespace FinanceTracker.Views {
 			return true;
 		}
 
-		private User createNewUser() {
-			if (doesUserExist()) {
+		private User CreateNewUser() {
+			if (FindUser(currentUser.name, currentUser.password) != null) {
 				Console.WriteLine("Cannot create a duplicate user.");
 				return null;
 			}
 			return new User(usernameTextBox.GetLineText(0), passwordTextBox.GetLineText(0));
 		}
 
-		private bool doesUserExist() {
-			
-			return false;
-		}
-
-		private User findUser(string username, string password) {
+		private User FindUser(string username, string password) {
+			try {
+				List<User> users = new List<User>();
+				string fileText = File.ReadAllText(path);
+				if (fileText.Length != 0) {
+					users = JsonConvert.DeserializeObject<List<User>>(fileText);
+				}
+				foreach (User user in users) {
+					if (user.name == username && user.password == password) {
+						return user;
+					}
+				}
+			} catch (Exception e) {
+				Console.WriteLine("No users recorded, please create an account.");
+			}
 			return null;
 		}
-
-		//todo
+		
 		private void WriteToFile(User currentUser) {
-			string path = "...\\users.json";
 			List<User> users = new List<User>();
 
-			
 			//Load original json
 			FileStream fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 			fs.Close();
@@ -103,6 +116,13 @@ namespace FinanceTracker.Views {
 			string json = JsonConvert.SerializeObject(users, Formatting.Indented);
 			//Writing to file to save
 			File.WriteAllText(@"...\\users.json", json);
+		}
+
+		private void CompleteLogin() {
+			Session.user = currentUser;
+			MainWindow main = new MainWindow();
+			main.Show();
+			this.Close();
 		}
 	}
 }
