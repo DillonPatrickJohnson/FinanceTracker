@@ -43,7 +43,7 @@ namespace FinanceTracker.Views {
 				return;
 			}
 			currentUser = createNewUser();
-			writeToFile(currentUser);
+			WriteToFile(currentUser);
 			Session.user = currentUser;
 			MainWindow main = new MainWindow();
 			main.Show();
@@ -83,20 +83,26 @@ namespace FinanceTracker.Views {
 		}
 
 		//todo
-		private void writeToFile(User currentUser) {
+		private void WriteToFile(User currentUser) {
 			string path = "...\\users.json";
+			List<User> users = new List<User>();
+
 			
 			//Load original json
 			FileStream fs = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 			fs.Close();
 
 			//Append.
-			string line = string.Format(currentUser.name + "," + currentUser.password + Environment.NewLine);
+			string fileText = File.ReadAllText(path);
+			if (fileText.Length != 0) {
+				users = JsonConvert.DeserializeObject<List<User>>(fileText);
+			}
+			users.Add(currentUser);
 
 			//Converting object to json using Newtonsoft JSON
-			string json = JsonConvert.SerializeObject(currentUser);
+			string json = JsonConvert.SerializeObject(users, Formatting.Indented);
 			//Writing to file to save
-			File.AppendAllText(@"...\\users.json", json);
+			File.WriteAllText(@"...\\users.json", json);
 		}
 	}
 }
